@@ -60,7 +60,6 @@ def report(asn):
         abort(response.status_code)
 
 def main():
-    app.debug = True
     app.run()
 
 main()
