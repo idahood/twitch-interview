@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import requests
 from flask import Flask, Markup, abort, render_template
 
@@ -60,6 +61,7 @@ def report(asn):
 
 def main():
     app.debug = True
-    app.run(host='0.0.0.0', port=80)
+    port = int(os.environ.get("PORT", 80))
+    app.run(host='0.0.0.0', port=port)
 
 main()
