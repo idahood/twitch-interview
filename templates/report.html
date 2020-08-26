@@ -18,12 +18,13 @@
       var pieData = [
         {% for ix, bandwidth in ix_aggregate.items() %}
           {
-            value: "{{ ix }}",
-            label: "{{ bandwidth }}",
-            color : "#{{ '%0x' % (range(0, 255) | random | int) }}{{ '%0x' % (range(0, 255) | random | int) }}{{ '%0x' % (range(0, 255) | random | int) }}"
+            value: "{{ bandwidth }}",
+            label: "{{ ix }}",
+            color: "#{{ '%0x' % (range(0, 255) | random | int) }}{{ '%0x' % (range(0, 255) | random | int) }}{{ '%0x' % (range(0, 255) | random | int) }}"
           },
         {% endfor %}
       ];
+
 
       // draw pie chart
       new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);

@@ -45,12 +45,6 @@ def report(asn):
         else:
             ix_aggregate[ix] = speed
 
-    for k, v in ix_aggregate.items():
-        print(k, v)
-    print('Total Peerings', len(ixs['data'][0]['netixlan_set']))
-    print('Unique Peerings', len(ix_aggregate))
-    print('Total Speed', total_aggregate_speed)
-
     return render_template('report.html', title='Peering Bandwith per IX', ix_aggregate=ix_aggregate, asn=asn,
                            total_bw=total_aggregate_speed, total_peers=len(ixs['data'][0]['netixlan_set']),
                            unique_peers=len(ix_aggregate))
