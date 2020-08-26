@@ -54,3 +54,6 @@ def report(asn):
                                unique_peers=len(ix_aggregate))
     else:
         abort(response.status_code)
+
+if __name__ == '__main__':
+    app.run(debug=True)
