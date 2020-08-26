@@ -26,6 +26,10 @@ If possible put the app on AWS or favorite cloud service.
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return "<h1>Not dead yet</h1>"
+
 @app.route('/<int:asn>')
 def report(asn):
     response = requests.get(f'https://peeringdb.com/api/net?asn={asn}&depth=2')
