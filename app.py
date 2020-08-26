@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "<h1>Not dead yet</h1>"
+    return "<h1>https://twitch-interview.herokuapp.com/ASN</h1>"
 
 @app.route('/<int:asn>')
 def report(asn):
