@@ -34,12 +34,14 @@ def report(asn):
     response = requests.get(f'https://peeringdb.com/api/net?asn={asn}&depth=2')
 
     if response.status_code == 200:
-        ixs = json.loads(response.text)
+        asn_net = json.loads(response.text)
 
         ix_aggregate = {}
         total_aggregate_speed = 0
+        ix_ids = []
 
-        for item in ixs['data'][0]['netixlan_set']:
+        for item in asn_net['data'][0]['netixlan_set']:
+            ix_ids.append(item['ix_id'])
             ix = item['name']
             speed = item['speed']
             total_aggregate_speed += speed
@@ -48,10 +50,19 @@ def report(asn):
             else:
                 ix_aggregate[ix] = speed
 
+        my_asns = set()
+        for item in ix_ids:
+            r = requests.get(f'https://peeringdb.com/api/ixlan?ix_id={item}&depth=2')
+            ix_info = json.loads(r.text)
+            for network in ix_info['data'][0]['net_set']:
+                my_asns.add(network['asn'])
+
         return render_template('report.html', ix_aggregate=ix_aggregate, asn=asn,
                                total_bw=total_aggregate_speed,
                                total_peers=len(ixs['data'][0]['netixlan_set']),
-                               unique_peers=len(ix_aggregate))
+                               unique_peers=len(ix_aggregate),
+                               my_asns=my_asns)
+
     else:
         abort(response.status_code)
 
